@@ -14,6 +14,7 @@ import java.util.Map;
 /**
  *
  * @author tasmiya
+ * 
  */
 public class TranscriptJPanel extends javax.swing.JPanel {
     

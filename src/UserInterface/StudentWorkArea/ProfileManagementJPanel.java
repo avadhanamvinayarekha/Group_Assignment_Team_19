@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  *
- * @author tasmiya
+ * @author iram3
  */
 public class ProfileManagementJPanel extends javax.swing.JPanel {
     
@@ -330,9 +330,6 @@ private void setupButtons() {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -528,11 +525,10 @@ private void setupButtons() {
                     .addComponent(btnReset))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-    }// </editor-fold>                        
+    }// </editor-fold>//GEN-END:initComponents
 
 
-    // Variables declaration - do not modify                     
-
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnChangePhoto;
     private javax.swing.JButton btnReset;
@@ -558,10 +554,7 @@ private void setupButtons() {
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtPhone;
-    // End of variables declaration                   
-
-    // End of variables declaration                   
-
+    // End of variables declaration//GEN-END:variables
 // End of variables declaration                   
     
     // PUT THIS CLASS HERE - At the very bottom!
