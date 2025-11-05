@@ -1,116 +1,57 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package info5100.university.example.Department;
-
-import info5100.university.example.CourseCatalog.Course;
-import info5100.university.example.CourseCatalog.CourseCatalog;
-import info5100.university.example.CourseSchedule.CourseLoad;
-import info5100.university.example.CourseSchedule.CourseOffer;
-import info5100.university.example.CourseSchedule.CourseSchedule;
-import info5100.university.example.Degree.Degree;
-import info5100.university.example.Employer.EmployerDirectory;
-import info5100.university.example.Persona.Faculty.FacultyDirectory;
-import info5100.university.example.Persona.PersonDirectory;
-import info5100.university.example.Persona.StudentDirectory;
-import info5100.university.example.Persona.StudentProfile;
-import java.util.HashMap;
-
-
+package Business;
+import info5100.university.example.Department.Department;
+import info5100.university.example.Persona.*;
+import info5100.university.example.Persona.Faculty.*;
+import info5100.university.example.CourseCatalog.*;
+import info5100.university.example.CourseSchedule.*;
+import Business.UserAccounts.UserAccountDirectory;
 /**
  *
- * @author kal bugrara
+ * @author hp
  */
-public class Department {
-
+public class UniversitySystem {
+    
     String name;
-    CourseCatalog coursecatalog;
-    PersonDirectory persondirectory;
-    StudentDirectory studentdirectory;
-    FacultyDirectory facultydirectory;
-    EmployerDirectory employerdirectory;
-    Degree degree;
-
-    HashMap<String, CourseSchedule> mastercoursecatalog;
-
-    public Department(String n) {
-        name = n;
-        mastercoursecatalog = new HashMap<>();
-        coursecatalog = new CourseCatalog(this);
-        studentdirectory = new StudentDirectory(this); //pass the department object so it stays linked to it
-        persondirectory = new PersonDirectory();
-        degree = new Degree("MSIS");
-        facultydirectory = new FacultyDirectory(this);  // ADD THIS LINE
-        
+    Department department;
+    UserAccountDirectory userAccountDirectory;
+    
+    public UniversitySystem(String name) {
+        this.name = name;
+        this.department = new Department("Information Systems");
+        this.userAccountDirectory = new UserAccountDirectory();
     }
-    public void addCoreCourse(Course c){
-        degree.addCoreCourse(c);
-        
+    
+    public String getName() {
+        return name;
     }
-public void addElectiveCourse(Course c){
-        degree.addElectiveCourse(c);
-        
+    
+    public Department getDepartment() {
+        return department;
     }
+    
+    public UserAccountDirectory getUserAccountDirectory() {
+        return userAccountDirectory;
+    }
+    
+    // Convenience methods
     public PersonDirectory getPersonDirectory() {
-
-        return persondirectory;
-
+        return department.getPersonDirectory();
     }
-
+    
     public StudentDirectory getStudentDirectory() {
-    return studentdirectory;
+        return department.getStudentDirectory();
     }
-
-    public CourseSchedule newCourseSchedule(String semester) {
-
-        CourseSchedule cs = new CourseSchedule(semester, coursecatalog);
-        mastercoursecatalog.put(semester, cs);
-        return cs;
+    
+    public FacultyDirectory getFacultyDirectory() {
+        return department.getFacultyDirectory();
     }
-
-    public CourseSchedule getCourseSchedule(String semester) {
-
-        return mastercoursecatalog.get(semester);
-
-    }
-
+    
     public CourseCatalog getCourseCatalog() {
-
-        return coursecatalog;
-
+        return department.getCourseCatalog();
     }
-
-    public Course newCourse(String n, String nm, int cr) {
-
-        Course c = coursecatalog.newCourse(n, nm, cr);
-        return c;
-    }
-
-    public int calculateRevenuesBySemester(String semester) {
-
-        CourseSchedule css = mastercoursecatalog.get(semester);
-
-        return css.calculateTotalRevenues();
-
-    }
-
-    public void RegisterForAClass(String studentid, String cn, String semester) {
-
-        StudentProfile sp = studentdirectory.findStudent(studentid);
-
-        CourseLoad cl = sp.getCurrentCourseLoad();
-
-        CourseSchedule cs = mastercoursecatalog.get(semester);
-
-        CourseOffer co = cs.getCourseOfferByNumber(cn);
-
-        co.assignEmptySeat(cl);
-
-    }
-        public FacultyDirectory getFacultyDirectory() {
-        return facultydirectory;
-    }
-
+    
 }

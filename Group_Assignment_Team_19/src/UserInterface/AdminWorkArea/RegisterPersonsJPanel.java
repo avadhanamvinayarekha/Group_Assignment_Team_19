@@ -3,35 +3,33 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package UserInterface.AdminWorkArea;
+
 import Business.Profiles.AdminProfile;
 import Business.UniversitySystem;
 import Business.UserAccounts.UserAccount;
-import Business.UserAccounts.UserAccountDirectory;
-
 import info5100.university.example.Persona.Person;
 import info5100.university.example.Persona.StudentProfile;
 import info5100.university.example.Persona.Faculty.FacultyProfile;
+import info5100.university.example.Persona.Faculty.FacultyAssignment;
+import info5100.university.example.CourseSchedule.CourseOffer;
+import info5100.university.example.CourseSchedule.CourseSchedule;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Hp
+ * RegisterPersonsJPanel - Admin registers new users with login credentials
+ * Supports Student, Faculty, and Admin registration
+ * Auto-assigns first course to new faculty members
+ * @author hp
  */
 public class RegisterPersonsJPanel extends javax.swing.JPanel {
     private UniversitySystem system;
-    /**
-     * Creates new form RegisterPersonsJPanel
-     */
+    
     public RegisterPersonsJPanel(UniversitySystem system) {
         initComponents();
-              this.system = system;
-        
-        
+        this.system = system;
         loadPersonsTable();
-
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,6 +55,10 @@ public class RegisterPersonsJPanel extends javax.swing.JPanel {
         btnRefresh = new javax.swing.JButton();
         scrollPane = new javax.swing.JScrollPane();
         tablePersons = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -115,6 +117,10 @@ public class RegisterPersonsJPanel extends javax.swing.JPanel {
         ));
         scrollPane.setViewportView(tablePersons);
 
+        jLabel1.setText("Username");
+
+        lblPassword.setText("Password");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -123,63 +129,87 @@ public class RegisterPersonsJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(45, 45, 45)
-                        .addComponent(txtContact))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lblName)
                         .addGap(33, 33, 33)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addComponent(txtContact))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addComponent(txtUsername)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblEmail, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblRole, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(lblRole, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblPassword, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(83, 83, 83)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtEmail)
-                    .addComponent(comboRole, 0, 142, Short.MAX_VALUE))
+                    .addComponent(comboRole, 0, 142, Short.MAX_VALUE)
+                    .addComponent(txtPassword))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(30, 30, 30)
                         .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 857, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(353, 353, 353)
-                        .addComponent(lblTitle)))
-                .addContainerGap(54, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(302, 302, 302)
-                .addComponent(btnRegister)
-                .addGap(18, 18, 18)
-                .addComponent(btnRefresh)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(280, 280, 280)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnRegister)
+                                .addGap(38, 38, 38)
+                                .addComponent(btnRefresh))
+                            .addComponent(lblTitle))))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(lblTitle)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblName)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblEmail)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblRole)
+                                .addComponent(comboRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(22, 22, 22)
+                                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPassword))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblName)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEmail)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblRole)
-                        .addComponent(comboRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRegister)
                     .addComponent(btnRefresh))
-                .addGap(59, 59, 59)
+                .addGap(27, 27, 27)
                 .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addGap(77, 77, 77))
         );
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -188,43 +218,53 @@ public class RegisterPersonsJPanel extends javax.swing.JPanel {
     
         private void loadPersonsTable() {
         DefaultTableModel model = (DefaultTableModel) tablePersons.getModel();
-        model.setRowCount(0); // Clear existing rows
+        model.setRowCount(0);
+        
+        if (system == null || system.getUserAccountDirectory() == null) {
+            return;
+        }
         
         for (UserAccount ua : system.getUserAccountDirectory().getAllAccounts()) {
-            Object[] row = new Object[4];
-            
-            if (ua.getRole().equals("STUDENT")) {
-                StudentProfile sp = (StudentProfile) ua.getProfile();
-                row[0] = sp.getStudentId();
-                row[1] = sp.getPerson().getPersonId();
-                row[2] = sp.getPerson().getEmail();
-                row[3] = "Student";
+            try {
+                Object[] row = new Object[4];
+                
+                if (ua.getRole().equals("STUDENT")) {
+                    StudentProfile sp = (StudentProfile) ua.getProfile();
+                    row[0] = sp.getStudentId();
+                    row[1] = sp.getPerson().getPersonId();
+                    row[2] = sp.getPerson().getEmail();
+                    row[3] = "Student";
+                }
+                else if (ua.getRole().equals("FACULTY")) {
+                    FacultyProfile fp = (FacultyProfile) ua.getProfile();
+                    row[0] = fp.getFacultyId();
+                    row[1] = fp.getPerson().getPersonId();
+                    row[2] = fp.getPerson().getEmail();
+                    row[3] = "Faculty";
+                }
+                else if (ua.getRole().equals("ADMIN")) {
+                    AdminProfile ap = (AdminProfile) ua.getProfile();
+                    row[0] = ap.getAdminId();
+                    row[1] = ap.getPerson().getPersonId();
+                    row[2] = ap.getPerson().getEmail();
+                    row[3] = "Admin";
+                }
+                
+                model.addRow(row);
+            } catch (Exception e) {
+                System.err.println("Error loading user row: " + e.getMessage());
             }
-            else if (ua.getRole().equals("FACULTY")) {
-                FacultyProfile fp = (FacultyProfile) ua.getProfile();
-                row[0] = fp.getFacultyId();
-                row[1] = fp.getPerson().getPersonId();
-                row[2] = fp.getPerson().getEmail();
-                row[3] = "Faculty";
-            }
-            else if (ua.getRole().equals("ADMIN")) {
-                AdminProfile ap = (AdminProfile) ua.getProfile();
-                row[0] = ap.getAdminId();
-                row[1] = ap.getPerson().getPersonId();
-                row[2] = ap.getPerson().getEmail();
-                row[3] = "Admin";
-            }
-            
-            model.addRow(row);
         }
-        }
+    }
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
                 String name = txtName.getText().trim();
         String email = txtEmail.getText().trim();
         String contact = txtContact.getText().trim();
+        String username = txtUsername.getText().trim();
+        String password = new String(txtPassword.getPassword()).trim();
         String role = (String) comboRole.getSelectedItem();
         
-        // VALIDATION
+        // VALIDATION - Check all fields
         if (name.isEmpty()) {
             JOptionPane.showMessageDialog(this,
                 "Please enter a name.",
@@ -241,12 +281,44 @@ public class RegisterPersonsJPanel extends javax.swing.JPanel {
             return;
         }
         
-        // Email format validation
         if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
             JOptionPane.showMessageDialog(this,
                 "Please enter a valid email address.",
                 "Validation Error",
                 JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (username.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                "Please enter a username.",
+                "Validation Error",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                "Please enter a password.",
+                "Validation Error",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (password.length() < 6) {
+            JOptionPane.showMessageDialog(this,
+                "Password must be at least 6 characters long.",
+                "Validation Error",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Check duplicate username
+        if (system.getUserAccountDirectory().findByUsername(username) != null) {
+            JOptionPane.showMessageDialog(this,
+                "Username already exists! Please choose a different username.",
+                "Duplicate Username",
+                JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -261,7 +333,6 @@ public class RegisterPersonsJPanel extends javax.swing.JPanel {
             }
         }
         
-        // Check if role is selected
         if (role == null || role.isEmpty()) {
             JOptionPane.showMessageDialog(this,
                 "Please select a role.",
@@ -276,53 +347,86 @@ public class RegisterPersonsJPanel extends javax.swing.JPanel {
             person.setEmail(email);
             person.setContactInfo(contact);
             
-            // Create profile based on role
+            // Create profile and account based on role
             if (role.equals("Student")) {
                 StudentProfile sp = system.getStudentDirectory().newStudentProfile(person);
                 sp.setDepartment("Information Systems");
-                system.getUserAccountDirectory().createUserAccount(sp, email, "pass123", "STUDENT");
+                system.getUserAccountDirectory().createUserAccount(sp, username, password, "STUDENT");
                 
                 JOptionPane.showMessageDialog(this,
-                    "Student registered successfully!\n" +
-                    "Username: " + email + "\n" +
-                    "Password: pass123\n" +
-                    "Student ID: " + sp.getStudentId(),
+                    "Student registered successfully!\n\n" +
+                    "Username: " + username + "\n" +
+                    "Password: " + password + "\n" +
+                    "Student ID: " + sp.getStudentId() + "\n\n" +
+                    "The student can now login with these credentials.",
                     "Success",
                     JOptionPane.INFORMATION_MESSAGE);
             }
             else if (role.equals("Faculty")) {
                 FacultyProfile fp = system.getFacultyDirectory().newFacultyProfile(person);
                 fp.setDepartment("Information Systems");
-                system.getUserAccountDirectory().createUserAccount(fp, email, "pass123", "FACULTY");
+                fp.setOfficeLocation("WVH 300");
+                fp.setOfficeHours("Mon/Wed 2-4 PM");
+                system.getUserAccountDirectory().createUserAccount(fp, username, password, "FACULTY");
                 
-                JOptionPane.showMessageDialog(this,
-                    "Faculty registered successfully!\n" +
-                    "Username: " + email + "\n" +
-                    "Password: pass123\n" +
-                    "Faculty ID: " + fp.getFacultyId(),
-                    "Success",
-                    JOptionPane.INFORMATION_MESSAGE);
+                // Auto-assign first available course
+               boolean courseAssigned = false;
+try {
+    // Get Fall2025 schedule directly
+    CourseSchedule fall2025 = system.getDepartment().getCourseSchedule("Fall2025");
+    
+    if (fall2025 != null) {
+        // Try to get the course offer directly
+        CourseOffer offer1 = fall2025.getCourseOfferByNumber("INFO 5100");
+        
+        if (offer1 != null) {
+            FacultyAssignment assignment = new FacultyAssignment(fp, offer1);
+            fp.getFacultyAssignments().add(assignment);
+            offer1.AssignAsTeacher(fp);
+            courseAssigned = true;
+        }
+    }
+} catch (Exception e) {
+    System.err.println("Could not auto-assign course: " + e.getMessage());
+}
+                
+                String message = "Faculty registered successfully!\n\n" +
+                    "Username: " + username + "\n" +
+                    "Password: " + password + "\n" +
+                    "Faculty ID: " + fp.getFacultyId() + "\n\n" +
+                    "The faculty can now login with these credentials.";
+                
+                if (courseAssigned) {
+                    message += "\n\nFirst available course has been auto-assigned.";
+                } else {
+                    message += "\n\nNote: No courses available to assign. Admin can assign later.";
+                }
+                
+                JOptionPane.showMessageDialog(this, message, "Success", JOptionPane.INFORMATION_MESSAGE);
             }
             else if (role.equals("Admin")) {
                 AdminProfile ap = new AdminProfile(person);
-                system.getUserAccountDirectory().createUserAccount(ap, email, "pass123", "ADMIN");
+                system.getUserAccountDirectory().createUserAccount(ap, username, password, "ADMIN");
                 
                 JOptionPane.showMessageDialog(this,
-                    "Admin registered successfully!\n" +
-                    "Username: " + email + "\n" +
-                    "Password: pass123\n" +
-                    "Admin ID: " + ap.getAdminId(),
+                    "Admin registered successfully!\n\n" +
+                    "Username: " + username + "\n" +
+                    "Password: " + password + "\n" +
+                    "Admin ID: " + ap.getAdminId() + "\n\n" +
+                    "The admin can now login with these credentials.",
                     "Success",
                     JOptionPane.INFORMATION_MESSAGE);
             }
             
-            // Clear fields
+            // Clear all fields after successful registration
             txtName.setText("");
             txtEmail.setText("");
             txtContact.setText("");
+            txtUsername.setText("");
+            txtPassword.setText("");
             comboRole.setSelectedIndex(0);
             
-            // Reload table
+            // Reload the table to show new user
             loadPersonsTable();
             
         } catch (Exception e) {
@@ -332,7 +436,6 @@ public class RegisterPersonsJPanel extends javax.swing.JPanel {
                 JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
-
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegisterActionPerformed
@@ -352,12 +455,14 @@ public class RegisterPersonsJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnRegister;
     private javax.swing.JComboBox<String> comboRole;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblRole;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JScrollPane scrollPane;
@@ -365,5 +470,7 @@ public class RegisterPersonsJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtContact;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtName;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

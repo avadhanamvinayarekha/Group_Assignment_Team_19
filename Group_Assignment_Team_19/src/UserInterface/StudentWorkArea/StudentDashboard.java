@@ -6,14 +6,14 @@ package UserInterface.StudentWorkArea;
 
 import Business.UniversitySystem;
 import Business.UserAccounts.UserAccount;
+import UserInterface.MainLoginFrame;
 import info5100.university.example.Persona.StudentProfile;
 import javax.swing.*;
 import java.awt.*;
 
 /**
  *
- * @author tasmiya
- * 
+ * @author Hp
  */
 public class StudentDashboard extends javax.swing.JFrame {
     
@@ -300,10 +300,16 @@ private void setupButtonActions() {
          onLogout();
     }//GEN-LAST:event_btnLogoutActionPerformed
 private void onLogout() {
-        JOptionPane.showMessageDialog(this, "Logging out...");
+        int confirm = JOptionPane.showConfirmDialog(this,
+        "Are you sure you want to logout?",
+        "Confirm Logout",
+        JOptionPane.YES_NO_OPTION);
+    
+    if (confirm == JOptionPane.YES_OPTION) {
+        MainLoginFrame login = new MainLoginFrame();
+        login.setVisible(true);
         this.dispose();
-        // Optionally go back to main login frame
-        // new MainLoginFrame(system).setVisible(true);
+    }
     }
     /**
      * @param args the command line arguments

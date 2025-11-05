@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author tasmiya
+ * @author Hp
  */
 public class GraduationAuditJPanel extends javax.swing.JPanel {
     

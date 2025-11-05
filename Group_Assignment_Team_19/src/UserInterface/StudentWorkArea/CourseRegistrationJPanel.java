@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 /**
  *
- * @author tasmiya
+ * @author Hp
  */
 public class CourseRegistrationJPanel extends javax.swing.JPanel {
     
@@ -408,6 +408,11 @@ if (btnDropCourse != null) {
         lblCreditLoad.setText("Current Credit Load: 0 / 8");
 
         btnEnroll.setText("Enroll");
+        btnEnroll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnrollActionPerformed(evt);
+            }
+        });
 
         btnRefresh.setText("Refresh");
 
@@ -436,11 +441,11 @@ if (btnDropCourse != null) {
                                         .addGap(37, 37, 37)
                                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnSearch)))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(btnSearch))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(48, 48, 48)
-                                .addComponent(lblTitle))))
+                                .addComponent(lblTitle)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -521,6 +526,10 @@ if (btnDropCourse != null) {
         }
     
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnEnrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnrollActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEnrollActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

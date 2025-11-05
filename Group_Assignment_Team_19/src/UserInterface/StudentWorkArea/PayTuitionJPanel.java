@@ -13,8 +13,7 @@ import java.util.Date;
 
 /**
  *
- * @author tasmiya
- * 
+ * @author Hp
  */
 public class PayTuitionJPanel extends javax.swing.JPanel {
     

@@ -13,8 +13,7 @@ import java.util.Map;
 
 /**
  *
- * @author tasmiya
- * 
+ * @author Hp
  */
 public class TranscriptJPanel extends javax.swing.JPanel {
     

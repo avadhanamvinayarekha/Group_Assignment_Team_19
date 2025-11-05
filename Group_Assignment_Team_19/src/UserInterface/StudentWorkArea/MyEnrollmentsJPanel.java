@@ -12,8 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author tasmiya
- * 
+ * @author Hp
  */
 public class MyEnrollmentsJPanel extends javax.swing.JPanel {
     

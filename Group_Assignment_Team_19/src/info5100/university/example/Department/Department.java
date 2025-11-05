@@ -112,5 +112,8 @@ public void addElectiveCourse(Course c){
         public FacultyDirectory getFacultyDirectory() {
         return facultydirectory;
     }
+            public HashMap<String, CourseSchedule> getMasterCourseCatalog() {
+        return mastercoursecatalog;
+    }
 
 }
