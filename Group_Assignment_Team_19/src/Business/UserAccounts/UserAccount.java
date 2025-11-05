@@ -6,7 +6,7 @@ package Business.UserAccounts;
 
 /**
  *
- * @author anush
+ * @author Hp
  */
 public class UserAccount {
     String username;
